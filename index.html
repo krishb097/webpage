@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Official Web App</title>
+  <style>
+    /* === CSS styles (unchanged + Contact section styles removed) === */
+    body {
+      background: url('mywall.jpg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 40px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 24px rgb(0, 0, 0);
+      width: 400px;
+      margin: auto;
+      margin-top: 10%;
+      display: none;
+    }
+
+    h1, h2, h3 {
+      text-align: center;
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+      margin-bottom: 20px;
+    }
+
+    button, input, textarea {
+      border-radius: 6px;
+      font-size: 16px;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+      border: 1px solid black;
+      padding: 12px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    input:hover, input:focus, textarea:hover, textarea:focus {
+      background-color: transparent;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+      transform: scale(1.03);
+      outline: none;
+      color: #fff;
+      background: rgba(255 255 255 / 0.1);
+      border-color: #f3c14b;
+    }
+
+    button {
+      background: #007bff;
+      color: #fff;
+      border: 1px solid black;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: transparent;
+      color: white;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+      transform: scale(1.03);
+      border-color: #f3c14b;
+    }
+
+    .link {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .link:hover {
+      color: #aad1ff;
+      text-decoration: underline;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      padding: 12px 30px;
+      box-shadow: 0 4px 20px rgb(0, 0, 0);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: black;
+      bottom: -4px;
+      left: 0;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: red;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .logout-btn {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      font-size: 14px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .logout-btn:hover {
+      background-color: white;
+      color: #f44336;
+      transform: scale(1.05);
+    }
+
+    #dashboard > section, #dashboard > div.dashboard-content {
+      display: none;
+      padding: 40px;
+      max-width: 900px;
+      margin: auto;
+      color: white;
+      background: rgba(0,0,0,0.6);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+      min-height: 400px;
+    }
+
+    #home.dashboard-content {
+      display: block;
+    }
+    
+    /* Partner Section */
+    .partners-section {
+      justify-content: center;
+      padding: 0;
+      text-align: center;
+      background: transparent;
+      box-shadow: none;
+      border-radius: 0;
+      min-height: auto;
+    }
+
+    .partners-section h2 {
+      font-size: 32px;
+      margin-bottom: 40px;
+      color: gold;
+      text-shadow: 0 0 8px #f3c14b;
+    }
+
+    .partner-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .partner-card {
+      background: rgba(0, 0, 0, 0.85);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+      text-align: center;
+      color: #fff;
+    }
+
+    .partner-card img {
+      width: 100%;
+      max-height: 80px;
+      object-fit: contain;
+      margin-bottom: 15px;
+      filter: drop-shadow(1px 1px 2px black);
+    }
+
+    .get-id-btn {
+      background: linear-gradient(to right, #f3c14b, #e5a100);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 10px;
+      color: black;
+      transition: transform 0.3s ease;
+    }
+
+    .get-id-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .visit-website {
+      color: #f3c14b;
+      font-size: 14px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .visit-website:hover {
+      text-decoration: underline;
+    }
+
+    /* About Section */
+    #about h2 {
+      color: gold;
+      margin-bottom: 25px;
+      text-shadow: 0 0 8px #f3c14b;
+    }
+
+    #about p, #about ul {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    #about ul {
+      padding-left: 20px;
+    }
+
+    /* Bottom page switcher */
+    .page-switcher {
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      padding: 12px 20px;
+      text-align: center;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.7);
+      position: sticky;
+      bottom: 0;
+      width: 100%;
+      max-width: 900px;
+      margin: auto;
+      border-radius: 0 0 12px 12px;
+    }
+
+    .page-switcher button {
+      background: #f3c14b;
+      border: none;
+      padding: 10px 25px;
+      margin: 0 10px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      color: black;
+      font-size: 16px;
+      transition: background 0.3s ease;
+    }
+
+    .page-switcher button:hover {
+      background: #e5a100;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .reset-password-section {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #fafafa;
+  font-family: Arial, sans-serif;
+}
+
+.reset-password-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.message {
+  margin-top: 15px;
+  font-size: 14px;
+  text-align: center;
+}
+.message.error {
+  color: red;
+}
+.message.success {
+  color: green;
+}
+  </style>
+</head>
+<body>
+  <!-- Login Page -->
+  <div class="container" id="login">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <label for="login-username">Username</label>
+      <input type="text" id="login-username" autocomplete="username" required />
+      <label for="login-password">Password</label>
+      <input type="password" id="login-password" autocomplete="current-password" required />
+      <button type="submit">Login</button>
+    </form>
+    <div class="link" onclick="showPage('signup')">Don't have an account? Sign up</div>
+  </div>
+
+  <!-- Signup Page -->
+  <div class="container" id="signup">
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+      <label for="fullname">Full Name</label>
+      <input type="text" id="fullname" required />
+      <label for="email">Email</label>
+      <input type="email" id="email" required />
+      <label for="contact">Contact</label>
+      <input type="tel" id="contact" required />
+      <label for="new-username">Username</label>
+      <input type="text" id="new-username" autocomplete="username" required />
+      <label for="new-password">Password</label>
+      <input type="password" id="new-password" autocomplete="new-password" required />
+      <label for="confirm-password">Re-enter Password</label>
+      <input type="password" id="confirm-password" autocomplete="new-password" required />
+      <button type="submit">Create Account</button>
+    </form>
+    <div class="link" onclick="showPage('login')">Already have an account? Login</div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard">
+    <nav class="navbar">
+      <div class="nav-links">
+        <a href="javascript:void(0)" onclick="switchDashboardPage('home')">Home</a>
+        <a href="javascript:void(0)" onclick="switchDashboardPage('about')">About</a>
+        <a href="javascript:void(0)" onclick="switchDashboardPage('account')">Account</a>
+        <a href="javascript:void(0)" onclick="switchDashboardPage('reset-password')">Reset Password</a>
+      </div>
+      <div>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </div>
+    </nav>
+
+    <!-- Home Content -->
+    <div id="home" class="dashboard-content">
+      <h1>Welcome, <span id="display-name"></span>!</h1>
+
+      <!-- Partner Section -->
+      <section class="partners-section">
+        <h2>OUR PARTNER</h2>
+        <div class="partner-grid">
+          <div class="partner-card">
+            <img src="partner1.png" alt="Partner 1 Logo" />
+            <button class="get-id-btn">Get ID</button>
+            <a href="#" class="visit-website" target="_blank" rel="noopener noreferrer">VISIT WEBSITE →</a>
+          </div>
+          <div class="partner-card">
+            <img src="partner2.png" alt="Partner 2 Logo" />
+            <button class="get-id-btn">Get ID</button>
+            <a href="#" class="visit-website" target="_blank" rel="noopener noreferrer">VISIT WEBSITE →</a>
+          </div>
+          <div class="partner-card">
+            <img src="partner3.png" alt="Partner 3 Logo" />
+            <button class="get-id-btn">Get ID</button>
+            <a href="#" class="visit-website" target="_blank" rel="noopener noreferrer">VISIT WEBSITE →</a>
+          </div>
+          <div class="partner-card">
+            <img src="partner4.png" alt="Partner 4 Logo" />
+            <button class="get-id-btn">Get ID</button>
+            <a href="#" class="visit-website" target="_blank" rel="noopener noreferrer">VISIT WEBSITE →</a>
+          </div>
+          <div class="partner-card">
+            <img src="partner5.png" alt="Partner 5 Logo" />
+            <button class="get-id-btn">Get ID</button>
+            <a href="#" class="visit-website" target="_blank" rel="noopener noreferrer">VISIT WEBSITE →</a>
+          </div>
+          <div class="partner-card">
+            <img src="partner6.png" alt="Partner 6 Logo" />
+            <button class="get-id-btn">Get ID</button>
+            <a href="#" class="visit-website" target="_blank" rel="noopener noreferrer">VISIT WEBSITE →</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- About Content -->
+    <section id="about">
+      <h2>About Official Web App</h2>
+      <p>Our official web app offers seamless user experience, real-time updates, and exclusive access to our partners' services.</p>
+      <ul>
+        <li>Secure and easy login/signup</li>
+        <li>Dynamic dashboard with partner information</li>
+        <li>Contact support via email (removed contact form)</li>
+      </ul>
+    </section>
+
+    <!-- Account Content -->
+    <section id="account">
+      <h2>Your Account Details</h2>
+      <p><strong>Username:</strong> <span id="account-username"></span></p>
+      <p><strong>Full Name:</strong> <span id="account-fullname"></span></p>
+      <p><strong>Email:</strong> <span id="account-email"></span></p>
+      <p><strong>Contact:</strong> <span id="account-contact"></span></p>
+    </section>
+<section id="reset-password" class="dashboard-content reset-password-section">
+  <h2>Reset Password</h2>
+  <form id="resetPasswordForm">
+    <div class="form-group">
+      <label for="oldPassword">Old Password</label>
+      <input type="password" id="oldPassword" name="oldPassword" required />
+    </div>
+    
+    <div class="form-group">
+      <label for="newPassword">New Password</label>
+      <input type="password" id="newPassword" name="newPassword" required />
+    </div>
+    
+    <div class="form-group">
+      <label for="confirmPassword">Confirm New Password</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required />
+    </div>
+    
+    <button type="submit">Reset Password</button>
+    <p class="message" id="message"></p>
+  </form>
+</section>
+
+
+  <script>
+    // JavaScript to handle page switching and authentication
+
+    // Initially show login page only
+    document.getElementById('login').style.display = 'block';
+
+    function showPage(page) {
+      // Hide all main containers
+      document.getElementById('login').style.display = 'none';
+      document.getElementById('signup').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'none';
+
+      // Show requested page
+      if (page === 'login') {
+        document.getElementById('login').style.display = 'block';
+      } else if (page === 'signup') {
+        document.getElementById('signup').style.display = 'block';
+      } else if (page === 'dashboard') {
+        document.getElementById('dashboard').style.display = 'block';
+      }
+    }
+
+    // Switch dashboard content sections
+    function switchDashboardPage(page) {
+      // Hide all dashboard content sections
+      const sections = document.querySelectorAll('#dashboard > section, #dashboard > div.dashboard-content');
+      sections.forEach(section => {
+        section.style.display = 'none';
+      });
+
+      // Show selected page
+      const selected = document.getElementById(page);
+      if (selected) {
+        selected.style.display = 'block';
+      }
+    }
+
+    // Login form submission
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value;
+
+      // Simple login validation - for demo, accept any username/password
+      if (username && password) {
+        // Save logged in user info in sessionStorage for demo
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(u => u.username === username && u.password === password);
+        if (user) {
+          localStorage.setItem('loggedInUser', JSON.stringify(user));
+          loadDashboard(user);
+          showPage('dashboard');
+        } else {
+          alert('Invalid username or password.');
+        }
+      } else {
+        alert('Please enter both username and password.');
+      }
+    });
+
+    // Signup form submission
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const fullname = document.getElementById('fullname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const contact = document.getElementById('contact').value.trim();
+      const username = document.getElementById('new-username').value.trim();
+      const password = document.getElementById('new-password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      if (!fullname || !email || !contact || !username || !password || !confirmPassword) {
+        alert('Please fill all fields.');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        alert('Passwords do not match.');
+        return;
+      }
+
+      let users = JSON.parse(localStorage.getItem('users')) || [];
+      if (users.some(u => u.username === username)) {
+        alert('Username already exists.');
+        return;
+      }
+
+      const newUser = { fullname, email, contact, username, password };
+      users.push(newUser);
+      localStorage.setItem('users', JSON.stringify(users));
+      alert('Account created successfully. Please login.');
+      showPage('login');
+    });
+
+    // Load dashboard with user info
+    function loadDashboard(user) {
+      document.getElementById('display-name').textContent = user.fullname;
+      document.getElementById('account-username').textContent = user.username;
+      document.getElementById('account-fullname').textContent = user.fullname;
+      document.getElementById('account-email').textContent = user.email;
+      document.getElementById('account-contact').textContent = user.contact;
+
+      switchDashboardPage('home');
+    }
+
+    // On page load, check if user is logged in
+      window.onload = function() {
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+      if (loggedInUser) {
+        loadDashboard(loggedInUser);
+        showPage('dashboard');
+      } else {
+        showPage('login');
+      }
+    };
+
+   function logout() {
+  const confirmDelete = confirm("Logging out will erase your account data. Are you sure?");
+  if (!confirmDelete) return;
+
+  const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+
+  if (loggedInUser) {
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+
+    users = users.filter(user => user.username !== loggedInUser.username);
+    localStorage.setItem('users', JSON.stringify(users));
+    sessionStorage.removeItem('loggedInUser');
+  }
+
+  showPage('login');
+}
+
+document.getElementById('resetPasswordForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const oldPassword = document.getElementById('oldPassword').value.trim();
+  const newPassword = document.getElementById('newPassword').value.trim();
+  const confirmPassword = document.getElementById('confirmPassword').value.trim();
+  const messageEl = document.getElementById('message');
+
+  messageEl.textContent = '';
+  messageEl.className = 'message';
+
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+  if (!loggedInUser) {
+    messageEl.textContent = 'You must be logged in to reset your password.';
+    messageEl.classList.add('error');
+    return;
+  }
+
+  if (oldPassword !== loggedInUser.password) {
+    messageEl.textContent = 'Old password is incorrect.';
+    messageEl.classList.add('error');
+    return;
+  }
+
+  if (newPassword.length < 6) {
+    messageEl.textContent = 'New password must be at least 6 characters long.';
+    messageEl.classList.add('error');
+    return;
+  }
+
+  if (newPassword !== confirmPassword) {
+    messageEl.textContent = 'New password and confirmation do not match.';
+    messageEl.classList.add('error');
+    return;
+  }
+
+  if (oldPassword === newPassword) {
+    messageEl.textContent = 'New password must be different from old password.';
+    messageEl.classList.add('error');
+    return;
+  }
+
+  // Update password in localStorage
+  const users = JSON.parse(localStorage.getItem('users')) || [];
+  const userIndex = users.findIndex(u => u.username === loggedInUser.username);
+
+  if (userIndex !== -1) {
+    users[userIndex].password = newPassword;
+    localStorage.setItem('users', JSON.stringify(users));
+
+    // Update localStorage
+    loggedInUser.password = newPassword;
+    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+
+    messageEl.textContent = 'Password reset successful!';
+    messageEl.classList.add('success');
+    this.reset();
+  } else {
+    messageEl.textContent = 'User not found. Please log in again.';
+    messageEl.classList.add('error');
+  }
+});
+
+  </script>
+</body>
+</html>
