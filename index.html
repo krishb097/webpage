@@ -6,24 +6,45 @@
   <title>Official Web App</title>
   <style>
     /* === CSS styles (unchanged + Contact section styles removed) === */
-    body {
-      background: url('mywall.jpg') no-repeat center center fixed;
-      background-size: cover;
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
+   body {
+  background: url('mywall.jpg') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
-    .container {
-      background: rgba(0, 0, 0, 0.5);
-      padding: 40px;
-      border-radius: 12px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 24px rgb(0, 0, 0);
-      width: 400px;
-      margin: auto;
-      margin-top: 10%;
-      display: none;
-    }
+.container {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 30px 25px;
+  border: 2px dashed white;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 15px 25px rgb(255, 255, 255);
+  width: 100%;
+  max-width: 400px;
+  display: none;
+  margin: 20px;
+}
+
+@media (max-width: 500px) {
+  .container {
+    padding: 20px 15px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  button, input {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
 
     h1, h2, h3 {
       text-align: center;
@@ -296,6 +317,7 @@
   text-align: center;
   margin-bottom: 20px;
   color: gold;
+  text-shadow: #f3c14b 0 2px 8px;
 }
 
 .form-group {
@@ -303,7 +325,7 @@
 }
 
 .form-group label {
-  display: block;
+  display: block; 
   font-weight: bold;
   margin-bottom: 6px;
   color: white;
@@ -679,4 +701,3 @@ document.getElementById('resetPasswordForm').addEventListener('submit', function
   </script>
 </body>
 </html>
-
